@@ -68,9 +68,14 @@ public class VentanaPrincipal extends JFrame {
         });
 
         btnReinas.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Implementar Torres de Hanoi aquí");
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        new ReinaGUI().setVisible(true);
+                        VentanaPrincipal.this.setVisible(false);
+                    }
+                });
             }
         });
     }
