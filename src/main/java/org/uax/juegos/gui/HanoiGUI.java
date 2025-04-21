@@ -12,6 +12,7 @@ public class HanoiGUI extends JFrame {
     private JTextField discosInput;
     private JTextArea movimientosArea;
     private JButton iniciarButton;
+    private JButton volver;
     private List<JPanel>[] torres;
     private int numDiscos;
 
@@ -23,6 +24,7 @@ public class HanoiGUI extends JFrame {
 
         discosInput = new JTextField("3", 5);
         iniciarButton = new JButton("Iniciar");
+        volver = new JButton("Volver");
         movimientosArea = new JTextArea();
         movimientosArea.setEditable(false);
 
@@ -51,6 +53,14 @@ public class HanoiGUI extends JFrame {
         JScrollPane scroll = new JScrollPane(movimientosArea);
         scroll.setPreferredSize(new Dimension(200, 0));
         add(scroll, BorderLayout.EAST);
+
+        add(volver, BorderLayout.SOUTH);
+        volver.addActionListener(e -> {
+            SwingUtilities.invokeLater(() -> {
+                new VentanaPrincipal().setVisible(true);
+                this.dispose();
+            });
+        });
 
         iniciarButton.addActionListener(e -> iniciarJuego());
 
