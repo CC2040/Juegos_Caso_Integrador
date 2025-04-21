@@ -55,14 +55,19 @@ public class VentanaPrincipal extends JFrame {
             }
         });
 
-        btnReinas.addActionListener(new ActionListener() {
-            @Override
+        btnHanoi.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Implementar problema de las reinas aquí");
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        new HanoiGUI().setVisible(true);
+                        VentanaPrincipal.this.setVisible(false);
+                    }
+                });
             }
         });
 
-        btnHanoi.addActionListener(new ActionListener() {
+        btnReinas.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(null, "Implementar Torres de Hanoi aquí");
