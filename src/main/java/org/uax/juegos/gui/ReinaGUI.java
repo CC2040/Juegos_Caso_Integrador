@@ -10,6 +10,7 @@ import java.util.List;
 public class ReinaGUI extends JFrame {
     private JPanel panelTablero;
     private JTextField reinasN;
+    private JButton volver;
     private int[] solucion = new int[8]; // Por defecto 8x8
 
     public ReinaGUI() {
@@ -36,6 +37,16 @@ public class ReinaGUI extends JFrame {
         // CENTER: Panel del tablero
         panelTablero = new TableroPanel();
         add(panelTablero, BorderLayout.CENTER);
+
+        // SOUTH: Botón volver
+        volver = new JButton("Volver");
+        add(volver, BorderLayout.SOUTH);
+        volver.addActionListener((ActionEvent e) -> {
+            SwingUtilities.invokeLater(() -> {
+                new VentanaPrincipal().setVisible(true);
+                this.setVisible(false);
+            });
+        });
 
         // Acción del botón
         botonResolver.addActionListener((ActionEvent e) -> {
