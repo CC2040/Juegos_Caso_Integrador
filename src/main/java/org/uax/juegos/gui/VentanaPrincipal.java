@@ -52,7 +52,7 @@ public class VentanaPrincipal extends JFrame {
                     @Override
                     public void run() {
                         new CaballoGUI().setVisible(true);
-                        VentanaPrincipal.this.setVisible(false);
+                        VentanaPrincipal.this.dispose();
                     }
                 });
             }
@@ -63,6 +63,7 @@ public class VentanaPrincipal extends JFrame {
                 SwingUtilities.invokeLater(() -> {
                     HanoiGUI gui = new HanoiGUI();
                     new HanoiEvento(gui);
+                    VentanaPrincipal.this.dispose();
                 });
             }
         });
@@ -73,7 +74,7 @@ public class VentanaPrincipal extends JFrame {
                     ReinaGUI vista = new ReinaGUI();
                     new ReinaEvento(vista);
                     vista.setVisible(true);
-                    VentanaPrincipal.this.setVisible(false);
+                    VentanaPrincipal.this.dispose();
                 });
             }
         });

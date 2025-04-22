@@ -70,8 +70,9 @@ public class HanoiEvento {
             }
 
             new Thread(() -> modelo.resolver(numDiscos, 0, 2, 1, (from, to) -> {
+                int discoMovido = obtenerNumeroDisco(from);
                 moverDisco(from, to);
-                registrarMovimiento(from, to);
+                registrarMovimiento(from, to, discoMovido);
                 pausar();
             })).start();
 
@@ -93,6 +94,13 @@ public class HanoiEvento {
         return disco;
     }
 
+    private int obtenerNumeroDisco(int torre) {
+        if (torres[torre].isEmpty()) return -1;
+        JPanel panel = torres[torre].get(torres[torre].size() - 1);
+        JLabel etiqueta = (JLabel) panel.getComponent(0);
+        return Integer.parseInt(etiqueta.getText());
+    }
+
     private void moverDisco(int origen, int destino) {
         if (torres[origen].isEmpty()) return;
         JPanel disco = torres[origen].remove(torres[origen].size() - 1);
@@ -110,9 +118,10 @@ public class HanoiEvento {
         });
     }
 
-    private void registrarMovimiento(int origen, int destino) {
-        vista.mostrarMovimiento(origen, destino);
+    private void registrarMovimiento(int origen, int destino, int disco) {
+        vista.mostrarMovimiento(origen, destino, disco);
     }
+
 
     private void pausar() {
         try {

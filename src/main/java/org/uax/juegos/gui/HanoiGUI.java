@@ -53,7 +53,8 @@ public class HanoiGUI extends JFrame {
         setVisible(true);
     }
 
-    public void mostrarMovimiento(int origen, int destino) {
-        movimientosArea.append("Mover disco de torre " + (char) ('A' + origen) + " a torre " + (char) ('A' + destino) + "\n");
+    public void mostrarMovimiento(int origen, int destino, int disco) {
+        movimientosArea.append("Mover disco " + disco + " de torre " + (char) ('A' + origen) + " a torre " + (char) ('A' + destino) + "\n");
     }
+
 }
