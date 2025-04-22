@@ -1,7 +1,9 @@
 package org.uax.juegos.eventos;
-import org.uax.juegos.juegos.Hanoi;
+
 import org.uax.juegos.gui.HanoiGUI;
 import org.uax.juegos.gui.VentanaPrincipal;
+import org.uax.juegos.juegos.Hanoi;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -14,7 +16,7 @@ public class HanoiEvento {
 
     public HanoiEvento(HanoiGUI vista) {
         this.vista = vista;
-        torres = new List[3];
+        torres = new ArrayList[3];
         for (int i = 0; i < 3; i++) {
             torres[i] = new ArrayList<>();
         }
@@ -31,6 +33,8 @@ public class HanoiEvento {
     private void iniciarJuego() {
         try {
             numDiscos = Integer.parseInt(vista.discosInput.getText());
+            if (numDiscos <= 0) throw new NumberFormatException();
+
             vista.movimientosArea.setText("");
             vista.panelTorres.removeAll();
 
@@ -41,34 +45,38 @@ public class HanoiEvento {
                 torre.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
                 torre.setBackground(Color.LIGHT_GRAY);
                 torre.add(Box.createVerticalGlue());
+
+                JLabel etiqueta = new JLabel(String.valueOf((char) ('A' + i)), JLabel.CENTER);
+                etiqueta.setAlignmentX(Component.CENTER_ALIGNMENT);
+                torre.add(etiqueta);
+
                 vista.panelTorres.add(torre);
-
-                // Etiqueta de torre (A, B, C)
-                JLabel etiquetaTorre = new JLabel(String.valueOf((char) ('A' + i)), JLabel.CENTER);
-                etiquetaTorre.setAlignmentX(Component.CENTER_ALIGNMENT);
-                torre.add(etiquetaTorre);
             }
 
-            for (int i = 1; i <= numDiscos; i++) {
+            // Crear discos y agregarlos visualmente a la torre A
+            for (int i = numDiscos; i >= 1; i--) {
                 JPanel disco = crearDisco(i);
-                torres[0].add(disco);  // Añadir el disco a la torre 0
+                torres[0].add(disco);
                 JPanel torre = (JPanel) vista.panelTorres.getComponent(0);
-                torre.add(disco);  // Añadir el disco a la parte inferior (por defecto añade al final)
+                torre.add(disco, 1);
             }
-
 
             vista.revalidate();
             vista.repaint();
 
-            Hanoi hanoi = new Hanoi(numDiscos);
-            new Thread(() -> hanoi.resolver(numDiscos, 0, 2, 1, (from, to) -> {
+            Hanoi modelo = new Hanoi(numDiscos);
+            for (int i = numDiscos; i >= 1; i--) {
+                modelo.getTorres()[0].push(i);
+            }
+
+            new Thread(() -> modelo.resolver(numDiscos, 0, 2, 1, (from, to) -> {
                 moverDisco(from, to);
                 registrarMovimiento(from, to);
                 pausar();
             })).start();
 
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(vista, "Por favor, ingrese un número válido.");
+            JOptionPane.showMessageDialog(vista, "Por favor, ingrese un número válido mayor que 0.");
         }
     }
 
@@ -79,9 +87,9 @@ public class HanoiEvento {
         disco.setPreferredSize(new Dimension(width, height));
         disco.setMaximumSize(new Dimension(width, height));
         disco.setAlignmentX(Component.CENTER_ALIGNMENT);
-        disco.setBackground(new Color((int)(Math.random() * 0x1000000)));
+        disco.setBackground(new Color((int) (Math.random() * 0xFFFFFF)));
         disco.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        disco.add(new JLabel(String.valueOf(size), JLabel.CENTER)); // El disco tiene un número
+        disco.add(new JLabel(String.valueOf(size)));
         return disco;
     }
 
@@ -94,7 +102,7 @@ public class HanoiEvento {
             JPanel torreOrigen = (JPanel) vista.panelTorres.getComponent(origen);
             JPanel torreDestino = (JPanel) vista.panelTorres.getComponent(destino);
             torreOrigen.remove(disco);
-            torreDestino.add(disco, torreDestino.getComponentCount() - 1);
+            torreDestino.add(disco, 1);
             torreOrigen.revalidate();
             torreDestino.revalidate();
             torreOrigen.repaint();

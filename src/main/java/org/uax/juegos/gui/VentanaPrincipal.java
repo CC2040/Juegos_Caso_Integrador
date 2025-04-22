@@ -1,5 +1,6 @@
 package org.uax.juegos.gui;
 import org.uax.juegos.eventos.ReinaEvento;
+import org.uax.juegos.eventos.HanoiEvento;
 
 import javax.swing.*;
 import java.awt.*;
@@ -59,12 +60,9 @@ public class VentanaPrincipal extends JFrame {
 
         btnHanoi.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        new HanoiGUI().setVisible(true);
-                        VentanaPrincipal.this.setVisible(false);
-                    }
+                SwingUtilities.invokeLater(() -> {
+                    HanoiGUI gui = new HanoiGUI();
+                    new HanoiEvento(gui);
                 });
             }
         });
@@ -75,6 +73,7 @@ public class VentanaPrincipal extends JFrame {
                     ReinaGUI vista = new ReinaGUI();
                     new ReinaEvento(vista);
                     vista.setVisible(true);
+                    VentanaPrincipal.this.setVisible(false);
                 });
             }
         });

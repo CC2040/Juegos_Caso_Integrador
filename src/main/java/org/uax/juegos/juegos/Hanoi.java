@@ -1,6 +1,7 @@
 package org.uax.juegos.juegos;
 
 import java.util.Stack;
+import java.util.function.BiConsumer;
 
 public class Hanoi {
     private int numDiscos;
@@ -12,27 +13,21 @@ public class Hanoi {
         for (int i = 0; i < 3; i++) {
             torres[i] = new Stack<>();
         }
+    }
 
-        for (int i = numDiscos; i >= 1; i--) {
-            torres[0].push(i);
+    public void resolver(int n, int origen, int destino, int auxiliar, BiConsumer<Integer, Integer> accion) {
+        if (n == 1) {
+            int disco = torres[origen].pop();
+            torres[destino].push(disco);
+            accion.accept(origen, destino);
+        } else {
+            resolver(n - 1, origen, auxiliar, destino, accion);
+            resolver(1, origen, destino, auxiliar, accion);
+            resolver(n - 1, auxiliar, destino, origen, accion);
         }
     }
 
     public Stack<Integer>[] getTorres() {
         return torres;
-    }
-
-    public void resolver(int n, int origen, int destino, int auxiliar, HanoiMoveListener listener) {
-        if (n > 0) {
-            resolver(n - 1, origen, auxiliar, destino, listener);
-            int disco = torres[origen].pop();
-            torres[destino].push(disco);
-            listener.onMove(origen, destino);
-            resolver(n - 1, auxiliar, destino, origen, listener);
-        }
-    }
-
-    public interface HanoiMoveListener {
-        void onMove(int from, int to);
     }
 }
