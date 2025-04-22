@@ -1,6 +1,7 @@
 package org.uax.juegos.eventos;
 import org.uax.juegos.juegos.Reina;
 import org.uax.juegos.gui.ReinaGUI;
+import org.uax.juegos.gui.VentanaPrincipal;
 import java.awt.*;
 import javax.swing.*;
 import java.util.List;
@@ -37,6 +38,12 @@ public class ReinaEvento {
                 indice = (indice + 1) % soluciones.size();
                 dibujar(soluciones.get(indice));
             }
+        });
+        vista.getVolver().addActionListener(e -> {
+            SwingUtilities.invokeLater(() -> {
+                new VentanaPrincipal().setVisible(true);
+                vista.dispose();
+            });
         });
     }
 
