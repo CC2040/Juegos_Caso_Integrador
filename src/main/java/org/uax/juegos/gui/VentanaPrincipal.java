@@ -1,4 +1,6 @@
 package org.uax.juegos.gui;
+import org.uax.juegos.eventos.ReinaEvento;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -69,12 +71,10 @@ public class VentanaPrincipal extends JFrame {
 
         btnReinas.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        new ReinaGUI().setVisible(true);
-                        VentanaPrincipal.this.setVisible(false);
-                    }
+                SwingUtilities.invokeLater(() -> {
+                    ReinaGUI vista = new ReinaGUI();
+                    new ReinaEvento(vista);
+                    vista.setVisible(true);
                 });
             }
         });

@@ -1,6 +1,8 @@
 package org.uax.juegos.juegos;
+
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class Reina {
     private int n;
@@ -8,7 +10,7 @@ public class Reina {
 
     public Reina(int n) {
         this.n = n;
-        tablero = new int[n];
+        this.tablero = new int[n];
     }
 
     public List<int[]> resolver() {
@@ -22,7 +24,6 @@ public class Reina {
             soluciones.add(tablero.clone());
             return;
         }
-
         for (int col = 0; col < n; col++) {
             if (esSeguro(fila, col)) {
                 tablero[fila] = col;
@@ -33,10 +34,8 @@ public class Reina {
 
     private boolean esSeguro(int fila, int col) {
         for (int i = 0; i < fila; i++) {
-            if (tablero[i] == col ||
-                    Math.abs(tablero[i] - col) == Math.abs(i - fila)) {
+            if (tablero[i] == col || Math.abs(tablero[i] - col) == Math.abs(i - fila))
                 return false;
-            }
         }
         return true;
     }
