@@ -1,4 +1,5 @@
 package org.uax.juegos.gui;
+import org.uax.juegos.eventos.CaballoEvento;
 import org.uax.juegos.eventos.ReinaEvento;
 import org.uax.juegos.eventos.HanoiEvento;
 
@@ -51,7 +52,9 @@ public class VentanaPrincipal extends JFrame {
                 SwingUtilities.invokeLater(new Runnable() {
                     @Override
                     public void run() {
-                        new CaballoGUI().setVisible(true);
+                        CaballoGUI vista = new CaballoGUI();
+                        new CaballoEvento(vista);
+                        vista.setVisible(true);
                         VentanaPrincipal.this.dispose();
                     }
                 });

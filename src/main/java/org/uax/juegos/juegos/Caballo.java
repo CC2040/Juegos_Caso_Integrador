@@ -80,7 +80,7 @@ public class Caballo extends Figura{
 
     @Override
     public void movimientoFigura(){
-
+        System.out.println(movimientos);
     }
 
 }
