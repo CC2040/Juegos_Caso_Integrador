@@ -15,14 +15,16 @@ public class CaballoGUI extends JFrame {
     private JPanel tablero;
     private JButton detener;
     private JButton continuar;
+    private JButton reiniciar;
     private JTextArea movimientosArea;
     private int[][] tableroVisual;
+    private boolean seleccionHabilitada = true; // Permitir selección al principio
     private boolean tableroGenerado = false; // Variable para verificar si el tablero ha sido generado
     private int xSeleccionado = -1, ySeleccionado = -1; // Variables para la posición seleccionada
 
     public CaballoGUI() {
         setTitle("Juego del Caballo");
-        setSize(800, 600);
+        setSize(800, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
@@ -37,13 +39,16 @@ public class CaballoGUI extends JFrame {
         iniciar = new JButton("Iniciar");
         detener = new JButton("Detener");
         continuar = new JButton("Continuar");
+        reiniciar = new JButton("Reiniciar");
         botonesPanel.add(generarTablero);
         botonesPanel.add(iniciar);
         botonesPanel.add(detener);
         botonesPanel.add(continuar);
+        botonesPanel.add(reiniciar);
         iniciar.setEnabled(false);
         continuar.setEnabled(false);
         detener.setEnabled(false);
+        reiniciar.setEnabled(false);
         entradaPanel.add(botonesPanel);
         add(entradaPanel, BorderLayout.NORTH);
 
@@ -72,7 +77,9 @@ public class CaballoGUI extends JFrame {
                     JOptionPane.showMessageDialog(CaballoGUI.this, "Primero genere el tablero.");
                     return;
                 }
-
+                if (!seleccionHabilitada) {
+                    return;
+                }
                 // Asegurarse de que tamanoTablero no esté vacío o tenga un valor válido
                 int tamanoTableroValue;
                 try {
@@ -157,6 +164,12 @@ public class CaballoGUI extends JFrame {
 
     public JButton getContinuar() {
         return continuar;
+    }
+    public void habilitarSeleccion(boolean habilitar) {
+        this.seleccionHabilitada = habilitar;
+    }
+    public JButton getReiniciar() {
+        return reiniciar;
     }
 
 }

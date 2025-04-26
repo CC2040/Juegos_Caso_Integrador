@@ -13,7 +13,7 @@ public class VentanaPrincipal extends JFrame {
     public VentanaPrincipal() {
         // Configurar la ventana principal
         setTitle("Juegos");
-        setSize(400, 300); // Tamaño fijo de la ventana
+        setSize(500, 400); // Tamaño fijo de la ventana
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false); // Hacer la ventana no redimensionable
         setLocationRelativeTo(null); // Centrar en la pantalla
@@ -26,16 +26,18 @@ public class VentanaPrincipal extends JFrame {
         JButton btnCaballo = new JButton("Caballo");
         JButton btnReinas = new JButton("Reinas");
         JButton btnHanoi = new JButton("Hanoi");
+        JButton btnSalir = new JButton("Salir");
 
         // Configurar el layout
         setLayout(new BorderLayout(10, 20));
 
         // Panel para los botones
         JPanel panelBotones = new JPanel();
-        panelBotones.setLayout(new GridLayout(3, 1, 10, 10));
+        panelBotones.setLayout(new GridLayout(4, 1, 10, 10));
         panelBotones.add(btnCaballo);
         panelBotones.add(btnReinas);
         panelBotones.add(btnHanoi);
+        panelBotones.add(btnSalir);
 
         // Añadir componentes a la ventana
         add(titulo, BorderLayout.NORTH);
@@ -79,6 +81,12 @@ public class VentanaPrincipal extends JFrame {
                     vista.setVisible(true);
                     VentanaPrincipal.this.dispose();
                 });
+            }
+        });
+        btnSalir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
             }
         });
     }

@@ -27,7 +27,9 @@ public class CaballoEvento implements ActionListener {
         vista.getIniciar().addActionListener(this);
         vista.getVolver().addActionListener(this);
         vista.getDetener().addActionListener(this);
-        vista.getContinuar().addActionListener(this);// cerrar ventana
+        vista.getContinuar().addActionListener(this);
+        vista.getReiniciar().addActionListener(this);
+
     }
 
     @Override
@@ -52,6 +54,10 @@ public class CaballoEvento implements ActionListener {
         }
         if (fuente == vista.getContinuar()) {
             continuarSimulacion();
+        }
+        if (fuente == vista.getReiniciar()) {
+            reiniciarTablero();
+
         }
     }
 
@@ -112,6 +118,7 @@ public class CaballoEvento implements ActionListener {
                 mostrarRecorridoPasoAPaso(recorrido);
                 vista.getIniciar().setEnabled(false);
                 vista.getDetener().setEnabled(true);
+                vista.habilitarSeleccion(false);
                 vista.getContinuar().setEnabled(false);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(vista, "Error en el inicio del recorrido.");
@@ -140,6 +147,9 @@ public class CaballoEvento implements ActionListener {
             if (pasoActual >= recorrido.size()) {
                 timer.stop();  // Detener el Timer cuando se termine el recorrido
                 vista.getMovimientosArea().append("\nTotal de movimientos: " + recorrido.size());
+                vista.getDetener().setEnabled(false);  // Deshabilitar el botón de Detener
+                vista.getContinuar().setEnabled(false);  // Deshabilitar el botón de Continuar
+                vista.getReiniciar().setEnabled(true);
                 return;
             }
 
@@ -187,4 +197,31 @@ public class CaballoEvento implements ActionListener {
             vista.getContinuar().setEnabled(false);  // Deshabilitar el botón de Continuar
         }
     }
+    private void reiniciarTablero() {
+        if (!vista.isTableroGenerado()) {
+            JOptionPane.showMessageDialog(vista, "Primero genere el tablero.");
+            return;
+        }
+
+        // Limpiar el tablero
+        Component[] celdas = vista.getTablero().getComponents();
+        for (Component celda : celdas) {
+            if (celda instanceof JPanel) {
+                JPanel panel = (JPanel) celda;
+                panel.setBackground(Color.WHITE);
+                panel.removeAll();
+            }
+        }
+
+        // Resetear selección
+        vista.habilitarSeleccion(true);
+        vista.getMovimientosArea().setText(""); // Limpiar área de movimientos
+        vista.getIniciar().setEnabled(true);     // Permitir iniciar de nuevo
+        vista.getDetener().setEnabled(false);
+        vista.getContinuar().setEnabled(false);
+        vista.getReiniciar().setEnabled(false);
+        vista.setTableroGenerado(true);
+        pasoActual = 0;  // Reiniciar el paso actual
+    }
+
 }
