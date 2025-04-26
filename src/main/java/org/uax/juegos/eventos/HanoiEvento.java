@@ -125,7 +125,7 @@ public class HanoiEvento {
 
     private void pausar() {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(700);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
