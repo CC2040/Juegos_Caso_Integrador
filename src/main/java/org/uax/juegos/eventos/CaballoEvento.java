@@ -112,7 +112,7 @@ public class CaballoEvento implements ActionListener {
                 mostrarRecorridoPasoAPaso(recorrido);
                 vista.getIniciar().setEnabled(false);
                 vista.getDetener().setEnabled(true);
-                vista.getContinuar().setEnabled(true);
+                vista.getContinuar().setEnabled(false);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(vista, "Error en el inicio del recorrido.");
             }

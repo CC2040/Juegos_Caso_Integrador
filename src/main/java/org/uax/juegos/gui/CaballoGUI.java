@@ -42,6 +42,7 @@ public class CaballoGUI extends JFrame {
         botonesPanel.add(detener);
         botonesPanel.add(continuar);
         iniciar.setEnabled(false);
+        continuar.setEnabled(false);
         detener.setEnabled(false);
         entradaPanel.add(botonesPanel);
         add(entradaPanel, BorderLayout.NORTH);
