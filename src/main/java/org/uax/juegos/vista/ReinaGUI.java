@@ -1,4 +1,4 @@
-package org.uax.juegos.gui;
+package org.uax.juegos.vista;
 
 import javax.swing.*;
 import java.awt.*;

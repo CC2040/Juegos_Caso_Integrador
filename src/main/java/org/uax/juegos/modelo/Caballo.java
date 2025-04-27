@@ -1,7 +1,6 @@
-package org.uax.juegos.juegos;
+package org.uax.juegos.modelo;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 import java.util.ArrayList;
 
 

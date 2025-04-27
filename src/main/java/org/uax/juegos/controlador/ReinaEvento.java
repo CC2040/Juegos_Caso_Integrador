@@ -1,7 +1,7 @@
-package org.uax.juegos.eventos;
-import org.uax.juegos.juegos.Reina;
-import org.uax.juegos.gui.ReinaGUI;
-import org.uax.juegos.gui.VentanaPrincipal;
+package org.uax.juegos.controlador;
+import org.uax.juegos.modelo.Reina;
+import org.uax.juegos.vista.ReinaGUI;
+import org.uax.juegos.vista.VentanaPrincipal;
 import java.awt.*;
 import javax.swing.*;
 import java.util.List;

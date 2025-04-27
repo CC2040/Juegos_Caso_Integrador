@@ -1,7 +1,7 @@
-package org.uax.juegos.gui;
-import org.uax.juegos.eventos.CaballoEvento;
-import org.uax.juegos.eventos.ReinaEvento;
-import org.uax.juegos.eventos.HanoiEvento;
+package org.uax.juegos.vista;
+import org.uax.juegos.controlador.CaballoEvento;
+import org.uax.juegos.controlador.ReinaEvento;
+import org.uax.juegos.controlador.HanoiEvento;
 
 import javax.swing.*;
 import java.awt.*;

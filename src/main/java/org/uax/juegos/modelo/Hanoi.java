@@ -1,4 +1,4 @@
-package org.uax.juegos.juegos;
+package org.uax.juegos.modelo;
 
 import java.util.Stack;
 import java.util.function.BiConsumer;

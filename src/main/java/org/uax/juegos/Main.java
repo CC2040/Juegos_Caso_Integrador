@@ -1,5 +1,5 @@
 package org.uax.juegos;
-import org.uax.juegos.gui.VentanaPrincipal;
+import org.uax.juegos.vista.VentanaPrincipal;
 import javax.swing.SwingUtilities;
 public class Main
 {

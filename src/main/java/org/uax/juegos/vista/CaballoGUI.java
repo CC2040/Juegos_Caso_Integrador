@@ -1,6 +1,4 @@
-package org.uax.juegos.gui;
-
-import org.uax.juegos.eventos.CaballoEvento;
+package org.uax.juegos.vista;
 
 import javax.swing.*;
 import java.awt.*;

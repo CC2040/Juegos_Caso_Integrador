@@ -1,4 +1,4 @@
-package org.uax.juegos.juegos;
+package org.uax.juegos.modelo;
 
 import java.util.ArrayList;
 import java.util.List;
