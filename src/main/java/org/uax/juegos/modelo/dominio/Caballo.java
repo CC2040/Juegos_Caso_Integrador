@@ -1,4 +1,4 @@
-package org.uax.juegos.modelo;
+package org.uax.juegos.modelo.dominio;
 import java.util.Comparator;
 import java.util.List;
 import java.util.ArrayList;

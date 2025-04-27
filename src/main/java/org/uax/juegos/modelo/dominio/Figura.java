@@ -1,4 +1,4 @@
-package org.uax.juegos.modelo;
+package org.uax.juegos.modelo.dominio;
 
 public abstract class Figura {
     protected int movimientos;

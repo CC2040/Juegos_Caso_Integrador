@@ -1,8 +1,8 @@
-package org.uax.juegos.controlador.dominio;
+package org.uax.juegos.controlador;
 
 import org.uax.juegos.vista.CaballoGUI;
 import org.uax.juegos.vista.VentanaPrincipal;
-import org.uax.juegos.modelo.Caballo;
+import org.uax.juegos.modelo.dominio.Caballo;
 
 import javax.swing.*;
 import java.awt.*;

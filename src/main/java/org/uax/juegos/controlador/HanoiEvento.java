@@ -1,8 +1,8 @@
-package org.uax.juegos.controlador.dominio;
+package org.uax.juegos.controlador;
 
 import org.uax.juegos.vista.HanoiGUI;
 import org.uax.juegos.vista.VentanaPrincipal;
-import org.uax.juegos.modelo.Hanoi;
+import org.uax.juegos.modelo.dominio.Hanoi;
 
 import javax.swing.*;
 import java.awt.*;

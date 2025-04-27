@@ -1,7 +1,7 @@
 package org.uax.juegos.vista;
-import org.uax.juegos.controlador.dominio.CaballoEvento;
-import org.uax.juegos.controlador.dominio.ReinaEvento;
-import org.uax.juegos.controlador.dominio.HanoiEvento;
+import org.uax.juegos.controlador.CaballoEvento;
+import org.uax.juegos.controlador.ReinaEvento;
+import org.uax.juegos.controlador.HanoiEvento;
 
 import javax.swing.*;
 import java.awt.*;

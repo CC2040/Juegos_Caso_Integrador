@@ -1,5 +1,5 @@
-package org.uax.juegos.controlador.dominio;
-import org.uax.juegos.modelo.Reina;
+package org.uax.juegos.controlador;
+import org.uax.juegos.modelo.dominio.Reina;
 import org.uax.juegos.vista.ReinaGUI;
 import org.uax.juegos.vista.VentanaPrincipal;
 import java.awt.*;
