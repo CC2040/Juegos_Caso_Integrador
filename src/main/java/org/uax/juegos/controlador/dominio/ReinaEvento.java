@@ -1,4 +1,4 @@
-package org.uax.juegos.controlador;
+package org.uax.juegos.controlador.dominio;
 import org.uax.juegos.modelo.Reina;
 import org.uax.juegos.vista.ReinaGUI;
 import org.uax.juegos.vista.VentanaPrincipal;
