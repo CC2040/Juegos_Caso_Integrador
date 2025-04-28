@@ -14,7 +14,10 @@ public class CaballoGUI extends JFrame {
     private JButton detener;
     private JButton continuar;
     private JButton reiniciar;
+    private JButton guardar;
+    private JButton historial;
     private JTextArea movimientosArea;
+    private JTextArea historialArea;
     private int[][] tableroVisual;
     private boolean seleccionHabilitada = true; // Permitir selección al principio
     private boolean tableroGenerado = false; // Variable para verificar si el tablero ha sido generado
@@ -38,11 +41,16 @@ public class CaballoGUI extends JFrame {
         detener = new JButton("Detener");
         continuar = new JButton("Continuar");
         reiniciar = new JButton("Reiniciar");
+        guardar = new JButton("Guardar");
+        historial = new JButton("Historial");
+
         botonesPanel.add(generarTablero);
         botonesPanel.add(iniciar);
         botonesPanel.add(detener);
         botonesPanel.add(continuar);
         botonesPanel.add(reiniciar);
+        botonesPanel.add(guardar);
+        botonesPanel.add(historial);
         iniciar.setEnabled(false);
         continuar.setEnabled(false);
         detener.setEnabled(false);
@@ -60,7 +68,15 @@ public class CaballoGUI extends JFrame {
         movimientosArea.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(movimientosArea);
         scrollPane.setPreferredSize(new Dimension(200, 0));
-        add(scrollPane, BorderLayout.EAST);
+        historialArea = new JTextArea();
+        historialArea.setEditable(false);
+        JScrollPane scrollPaneHistorial = new JScrollPane(historialArea);
+        scrollPaneHistorial.setBorder(BorderFactory.createTitledBorder("Historial de Movimientos"));
+        JPanel panelLateral = new JPanel(new GridLayout(2, 1));
+        panelLateral.add(scrollPane);
+        panelLateral.add(scrollPaneHistorial);
+        panelLateral.setPreferredSize(new Dimension(200, 0));
+        add(panelLateral, BorderLayout.EAST);
 
         // Panel inferior (SOUTH) - Botón volver
         volver = new JButton("Volver");
@@ -169,5 +185,13 @@ public class CaballoGUI extends JFrame {
     public JButton getReiniciar() {
         return reiniciar;
     }
-
+    public JButton getGuardar() {
+        return guardar;
+    }
+    public JButton getHistorial() {
+        return historial;
+    }
+    public JTextArea getHistorialArea() {
+        return historialArea;
+    }
 }
