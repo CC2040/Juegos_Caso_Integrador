@@ -141,7 +141,7 @@ public class HanoiEvento {
                 (char) ('A' + destino);
         vista.mostrarMovimiento(origen, destino, disco);
         // El campo 'movimiento' se asigna aquí con el número del disco movido (puede ser cualquier otro indicador)
-        HanoiMovimiento hm = new HanoiMovimiento(disco, detalle, null);
+        HanoiMovimiento hm = new HanoiMovimiento(disco, detalle, partida);
         movimientosPersistencia.add(hm);
     }
 
@@ -177,7 +177,7 @@ public class HanoiEvento {
                 SwingUtilities.invokeLater(() -> {
                     // Se muestra un mensaje de confirmación sin actualizar el área de historial.
                     JOptionPane.showMessageDialog(vista,
-                            "Partida guardada. Presione 'Historial' para ver el historial.",
+                            "Partida guardada.",
                             "Guardado", JOptionPane.INFORMATION_MESSAGE);
                 });
             }).start();
@@ -187,13 +187,37 @@ public class HanoiEvento {
     }
 
     private void mostrarHistorial() {
-        SwingUtilities.invokeLater(() -> {
-            if (historialMensajeGuardado != null && !historialMensajeGuardado.isEmpty()) {
-                // Actualiza el área de historial con el mensaje guardado.
-                vista.historialArea.setText(historialMensajeGuardado);
-            } else {
-                vista.historialArea.setText("No hay historial disponible.");
+        new Thread(() -> {
+            List<HanoiPartida> partidas;
+            try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+                partidas = session.createQuery(
+                        "select distinct p from HanoiPartida p left join fetch p.movimientos",
+                        HanoiPartida.class
+                ).list();
             }
-        });
+            StringBuilder mensaje = new StringBuilder();
+            for (HanoiPartida p : partidas) {
+                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                String fechaString = sdf.format(p.getFecha());
+                mensaje.append("Partida#").append(p.getId())
+                        .append(" (").append(fechaString).append("):\n");
+                if (p.getMovimientos() != null && !p.getMovimientos().isEmpty()) {
+                    for (HanoiMovimiento hm : p.getMovimientos()) {
+                        mensaje.append(hm.getDetalle()).append("\n");
+                    }
+                } else {
+                    mensaje.append("Sin movimientos.\n");
+                }
+                mensaje.append("\n");
+            }
+            String historial = mensaje.toString();
+            SwingUtilities.invokeLater(() -> {
+                if (!historial.isEmpty()) {
+                    vista.historialArea.setText(historial);
+                } else {
+                    JOptionPane.showMessageDialog(vista,"No hay historial disponible.");
+                }
+            });
+        }).start();
     }
 }
