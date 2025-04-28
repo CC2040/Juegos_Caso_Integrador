@@ -1,9 +1,14 @@
 package org.uax.juegos.controlador;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.uax.juegos.vista.HanoiGUI;
 import org.uax.juegos.vista.VentanaPrincipal;
 import org.uax.juegos.modelo.dominio.Hanoi;
+import org.uax.juegos.modelo.persistencia.HanoiPartida;
+import org.uax.juegos.modelo.persistencia.HanoiMovimiento;
 
+import org.uax.juegos.util.HibernateUtil;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -13,6 +18,10 @@ public class HanoiEvento {
     private HanoiGUI vista;
     private List<JPanel>[] torres;
     private int numDiscos;
+    // Variables para persistir datos
+    private HanoiPartida partida;
+    private List<HanoiMovimiento> movimientosPersistencia;
+    private String historialMensajeGuardado;
 
     public HanoiEvento(HanoiGUI vista) {
         this.vista = vista;
@@ -20,7 +29,7 @@ public class HanoiEvento {
         for (int i = 0; i < 3; i++) {
             torres[i] = new ArrayList<>();
         }
-
+        movimientosPersistencia = new ArrayList<>();
         vista.iniciarButton.addActionListener(e -> iniciarJuego());
         vista.volverButton.addActionListener(e -> {
             SwingUtilities.invokeLater(() -> {
@@ -28,6 +37,8 @@ public class HanoiEvento {
                 vista.dispose();
             });
         });
+        vista.guardarButton.addActionListener(e -> guardarMovimientos());
+        vista.mostrarHistorialButton.addActionListener(e -> mostrarHistorial());
     }
 
     private void iniciarJuego() {
@@ -37,6 +48,9 @@ public class HanoiEvento {
 
             vista.movimientosArea.setText("");
             vista.panelTorres.removeAll();
+            // Inicializar la partida y reiniciar la lista de movimientos
+            partida = new HanoiPartida();
+            movimientosPersistencia.clear();
 
             for (int i = 0; i < 3; i++) {
                 torres[i].clear();
@@ -75,6 +89,10 @@ public class HanoiEvento {
                 registrarMovimiento(from, to, discoMovido);
                 pausar();
             })).start();
+
+            // Inicializar la partida y reiniciar la lista de movimientos
+            partida = new HanoiPartida();
+            movimientosPersistencia.clear();
 
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(vista, "Por favor, ingrese un número válido mayor que 0.");
@@ -119,7 +137,12 @@ public class HanoiEvento {
     }
 
     private void registrarMovimiento(int origen, int destino, int disco) {
+        String detalle = "Mover disco " + disco + " de torre " + (char) ('A' + origen) + " a torre " +
+                (char) ('A' + destino);
         vista.mostrarMovimiento(origen, destino, disco);
+        // El campo 'movimiento' se asigna aquí con el número del disco movido (puede ser cualquier otro indicador)
+        HanoiMovimiento hm = new HanoiMovimiento(disco, detalle, null);
+        movimientosPersistencia.add(hm);
     }
 
 
@@ -129,5 +152,48 @@ public class HanoiEvento {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+    }
+
+    private void guardarMovimientos() {
+        if (partida != null && !movimientosPersistencia.isEmpty()) {
+            new Thread(() -> {
+                try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+                    Transaction tx = session.beginTransaction();
+                    try {
+                        partida.setMovimientos(movimientosPersistencia);
+                        session.save(partida);
+                        tx.commit();
+                    } catch (Exception e) {
+                        if (tx != null) {
+                            tx.rollback();
+                        }
+                        e.printStackTrace();
+                    }
+                }
+                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                String fechaString = sdf.format(partida.getFecha());
+                historialMensajeGuardado = "Partida#" + partida.getId() + " (" + fechaString + "):\n"
+                        + vista.movimientosArea.getText() + "\n";
+                SwingUtilities.invokeLater(() -> {
+                    // Se muestra un mensaje de confirmación sin actualizar el área de historial.
+                    JOptionPane.showMessageDialog(vista,
+                            "Partida guardada. Presione 'Historial' para ver el historial.",
+                            "Guardado", JOptionPane.INFORMATION_MESSAGE);
+                });
+            }).start();
+        } else {
+            JOptionPane.showMessageDialog(vista, "No hay movimientos para guardar.");
+        }
+    }
+
+    private void mostrarHistorial() {
+        SwingUtilities.invokeLater(() -> {
+            if (historialMensajeGuardado != null && !historialMensajeGuardado.isEmpty()) {
+                // Actualiza el área de historial con el mensaje guardado.
+                vista.historialArea.setText(historialMensajeGuardado);
+            } else {
+                vista.historialArea.setText("No hay historial disponible.");
+            }
+        });
     }
 }
