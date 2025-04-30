@@ -3,8 +3,8 @@
     import org.uax.juegos.vista.CaballoGUI;
     import org.uax.juegos.vista.VentanaPrincipal;
     import org.uax.juegos.modelo.dominio.Caballo;
-    import org.uax.juegos.modelo.persistencia.Movimiento;
-    import org.uax.juegos.modelo.persistencia.Partida;
+    import org.uax.juegos.modelo.persistencia.CaballoMovimiento;
+    import org.uax.juegos.modelo.persistencia.CaballoPartida;
 
     import org.hibernate.Session;
     import org.hibernate.Transaction;
@@ -16,7 +16,6 @@
     import java.util.List;
     import java.awt.event.ActionEvent;
     import java.awt.event.ActionListener;
-    import java.util.ArrayList;
 
     public class CaballoEvento implements ActionListener {
         private final CaballoGUI vista;
@@ -254,11 +253,11 @@
                 session = HibernateUtil.getSessionFactory().openSession();
                 tx = session.beginTransaction();
 
-                Partida partida = new Partida();
+                CaballoPartida partida = new CaballoPartida();
 
                 for (int i = 0; i < recorrido.size(); i++) {
                     int[] pos = recorrido.get(i);
-                    Movimiento movimiento = new Movimiento();
+                    CaballoMovimiento movimiento = new CaballoMovimiento();
                     movimiento.setPaso(i + 1);
                     movimiento.setX(pos[0]);
                     movimiento.setY(pos[1]);
@@ -279,16 +278,16 @@
         }
         public void mostrarDatosEnGUI() {
             try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-                List<Partida> partidas = session.createQuery("FROM Partida", Partida.class).list();
+                List<CaballoPartida> partidas = session.createQuery("FROM CaballoPartida ", CaballoPartida.class).list();
 
                 StringBuilder sb = new StringBuilder();
                 sb.append("=== HISTORIAL ===\n\n");
 
-                for (Partida p : partidas) {
+                for (CaballoPartida p : partidas) {
                     sb.append("Partida #").append(p.getId())
                             .append(" - ").append(p.getFecha()).append("\n");
 
-                    for (Movimiento m : p.getMovimientos()) {
+                    for (CaballoMovimiento m : p.getMovimientos()) {
                         sb.append("  Paso ").append(m.getPaso())
                                 .append(": (").append(m.getX())
                                 .append(",").append(m.getY()).append(")\n");

@@ -3,8 +3,8 @@ package org.uax.juegos.modelo.persistencia;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "movimientos")
-public class Movimiento {
+@Table(name = "caballo_movimientos")
+public class CaballoMovimiento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,10 +21,10 @@ public class Movimiento {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "partida_id", nullable = false)
-    private Partida partida;
+    private CaballoPartida partida;
 
     // Constructor, Getters y Setters
-    public Movimiento() {}
+    public CaballoMovimiento() {}
 
     // Getters y Setters
     public Long getId() {
@@ -55,11 +55,11 @@ public class Movimiento {
         this.y = y;
     }
 
-    public Partida getPartida() {
+    public CaballoPartida getPartida() {
         return partida;
     }
 
-    public void setPartida(Partida partida) {
+    public void setPartida(CaballoPartida partida) {
         this.partida = partida;
     }
 }

@@ -17,8 +17,8 @@
         <property name="hibernate.use_sql_comments">true</property>
 
         <!-- Mapeo de entidades del juego del Caballo -->
-        <mapping class="org.uax.juegos.modelo.persistencia.Partida"/>
-        <mapping class="org.uax.juegos.modelo.persistencia.Movimiento"/>
+        <mapping class="org.uax.juegos.modelo.persistencia.CaballoPartida"/>
+        <mapping class="org.uax.juegos.modelo.persistencia.CaballoMovimiento"/>
 
         <!-- Mapeo de entidades del juego de Hanoi -->
         <mapping class="org.uax.juegos.modelo.persistencia.HanoiPartida"/>
