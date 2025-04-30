@@ -5,7 +5,7 @@
 
 <hibernate-configuration>
     <session-factory>
-        <!-- Configuración para H2 Database (embebida) -->
+        <!-- Configuración para MySQL Database -->
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ejemplo_juego?useSSL=false&amp;serverTimezone=UTC</property>
         <property name="hibernate.connection.username">root</property>
