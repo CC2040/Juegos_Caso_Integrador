@@ -3,10 +3,9 @@
     import org.uax.juegos.vista.CaballoGUI;
     import org.uax.juegos.vista.VentanaPrincipal;
     import org.uax.juegos.modelo.dominio.Caballo;
-    import org.uax.juegos.modelo.persistencia.CaballoMovimiento;
-    import org.uax.juegos.modelo.persistencia.CaballoPartida;
-
-    import org.hibernate.Session;
+import org.uax.juegos.modelo.persistencia.CaballoPersistencia.CaballoMovimiento;
+import org.uax.juegos.modelo.persistencia.CaballoPersistencia.CaballoPartida;
+import org.hibernate.Session;
     import org.hibernate.Transaction;
     import org.uax.juegos.util.HibernateUtil;
     import javax.swing.JOptionPane;

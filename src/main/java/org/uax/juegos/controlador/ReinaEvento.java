@@ -2,8 +2,8 @@ package org.uax.juegos.controlador;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.uax.juegos.modelo.persistencia.ReinaPartida;
-import org.uax.juegos.modelo.persistencia.ReinaMovimiento;
+import org.uax.juegos.modelo.persistencia.ReinaPersistencia.ReinaMovimiento;
+import org.uax.juegos.modelo.persistencia.ReinaPersistencia.ReinaPartida;
 import org.uax.juegos.util.HibernateUtil;
 
 import org.uax.juegos.modelo.dominio.Reina;

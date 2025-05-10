@@ -1,4 +1,4 @@
-package org.uax.juegos.modelo.persistencia;
+package org.uax.juegos.modelo.persistencia.CaballoPersistencia;
 
 import jakarta.persistence.*;
 

@@ -5,9 +5,8 @@ import org.hibernate.Transaction;
 import org.uax.juegos.vista.HanoiGUI;
 import org.uax.juegos.vista.VentanaPrincipal;
 import org.uax.juegos.modelo.dominio.Hanoi;
-import org.uax.juegos.modelo.persistencia.HanoiPartida;
-import org.uax.juegos.modelo.persistencia.HanoiMovimiento;
-
+import org.uax.juegos.modelo.persistencia.HanoiPersistencia.HanoiMovimiento;
+import org.uax.juegos.modelo.persistencia.HanoiPersistencia.HanoiPartida;
 import org.uax.juegos.util.HibernateUtil;
 import javax.swing.*;
 import java.awt.*;

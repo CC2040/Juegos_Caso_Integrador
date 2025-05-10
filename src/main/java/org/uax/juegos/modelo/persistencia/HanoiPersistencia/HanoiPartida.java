@@ -1,4 +1,4 @@
-package org.uax.juegos.modelo.persistencia;
+package org.uax.juegos.modelo.persistencia.HanoiPersistencia;
 
 import jakarta.persistence.*;
 import java.util.Date;
