@@ -23,5 +23,9 @@
         <!-- Mapeo de entidades del juego de Hanoi -->
         <mapping class="org.uax.juegos.modelo.persistencia.HanoiPartida"/>
         <mapping class="org.uax.juegos.modelo.persistencia.HanoiMovimiento"/>
+
+        <!-- Mapeo de entidades del juego de Reina -->
+        <mapping class="org.uax.juegos.modelo.persistencia.ReinaPartida"/>
+        <mapping class="org.uax.juegos.modelo.persistencia.ReinaMovimiento"/>
     </session-factory>
 </hibernate-configuration>

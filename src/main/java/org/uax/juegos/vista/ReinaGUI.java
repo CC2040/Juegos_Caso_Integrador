@@ -9,7 +9,10 @@ public class ReinaGUI extends JFrame {
     private JButton resolver;
     private JButton siguiente;
     private JButton volver;
+    private JButton guardar;
+    private JButton historial;
     private JPanel tablero;
+    private JTextArea historialArea;
 
     public ReinaGUI() {
         setTitle("N Reinas - MVC");
@@ -21,6 +24,8 @@ public class ReinaGUI extends JFrame {
         resolver = new JButton("Resolver");
         siguiente = new JButton("Siguiente");
         volver = new JButton("Volver");
+        guardar = new JButton("Guardar");
+        historial = new JButton("Historial");
         siguiente.setEnabled(false);
 
         JPanel topPanel = new JPanel();
@@ -28,6 +33,8 @@ public class ReinaGUI extends JFrame {
         topPanel.add(input);
         topPanel.add(resolver);
         topPanel.add(siguiente);
+        topPanel.add(guardar);
+        topPanel.add(historial);
 
         tablero = new JPanel() {
             @Override
@@ -37,17 +44,26 @@ public class ReinaGUI extends JFrame {
         };
         tablero.setPreferredSize(new Dimension(600, 600));
 
+        historialArea = new JTextArea();
+        historialArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(historialArea);
+        scrollPane.setPreferredSize(new Dimension(200, 600));
+
         JPanel popPanel = new JPanel();
         popPanel.add(volver);
 
         add(topPanel, BorderLayout.NORTH);
         add(tablero, BorderLayout.CENTER);
+        add(scrollPane, BorderLayout.EAST);
         add(popPanel, BorderLayout.SOUTH);
     }
 
     public JTextField getInput() { return input; }
     public JButton getResolver() { return resolver; }
     public JButton getSiguiente() { return siguiente; }
+    public JButton getGuardar() { return guardar; }
+    public JButton getHistorial() { return historial; }
+    public JTextArea getHistorialArea() { return historialArea; }
     public JButton getVolver() { return volver; }
     public JPanel getTablero() { return tablero; }
 }
